@@ -149,6 +149,10 @@ public class LinkedList<T> {
 		return this;
 	}
 
+	public Node<T> head() {
+		return this.head;
+	}
+
 	// TODO Apply refactor for iter from list
 	public Node<T> get(int pos) throws ArrayIndexOutOfBoundsException {
 		if (this.head == null) {
@@ -350,6 +354,45 @@ public class LinkedList<T> {
 			lastIndex--;
 		}
 		return true;
+	}
+
+	public static int isLoop(LinkedList<Integer> list) {
+		if (list.head == null) {
+			return -1;
+		}
+		Node<Integer> slowRunner = list.head;
+		Node<Integer> fastRunner = list.head;
+
+		if (slowRunner.next == null || fastRunner.next.next == null) {
+			return -1;
+		}
+
+		slowRunner = slowRunner.next;
+		fastRunner = fastRunner.next.next;
+
+		while (slowRunner != fastRunner) {
+			slowRunner = slowRunner.next;
+			fastRunner = fastRunner.next;
+			if (fastRunner == null || slowRunner == null) {
+				return -1;
+			}
+			fastRunner = fastRunner.next;
+			// TODO rename method to specify which it is doing
+			if (fastRunner == null) {
+				return -1;
+			}
+		}
+
+		slowRunner = list.head;
+		int i = 0;
+		while (slowRunner != fastRunner) {
+			slowRunner = slowRunner.next;
+			fastRunner = fastRunner.next;
+			i++;
+		}
+
+		return i;
+
 	}
 
 }

@@ -195,4 +195,15 @@ public class LinkedListTest {
 		Assert.assertFalse(LinkedList.IsPalindrom(listOfValues));
 	}
 
+	@Test
+	public void testFindLoops() {
+		LinkedList<Integer> listOfValues = new LinkedList<Integer>();
+
+		Node<Integer> loopNode = new Node(2);
+		listOfValues.add(new Node(0)).add(new Node(1)).add(loopNode);
+		loopNode.add(new Node(3)).add(new Node(4)).add(new Node(5)).add(loopNode);
+
+		Assert.assertEquals(2, LinkedList.isLoop(listOfValues));
+	}
+
 }
