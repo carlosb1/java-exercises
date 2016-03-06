@@ -17,6 +17,7 @@
 	  <module>problems</module>
     <module>code-jam</module>
     <module>java8-examples</module>
+    <module>downloader-youtube</module>
   </modules>
 
   <dependencies>
