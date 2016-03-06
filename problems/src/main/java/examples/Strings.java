@@ -61,4 +61,30 @@ public class Strings {
 		return resultArray;
 	}
 
+	public static Object compress(String originalMsg) {
+		char[] chars = originalMsg.toCharArray();
+
+		char charCompare = '\n';
+		int countChars = 0;
+
+		StringBuffer result = new StringBuffer();
+
+		for (char currentChar : chars) {
+			if (currentChar == charCompare) {
+				countChars++;
+			} else {
+				if (countChars != 0) {
+					result.append(charCompare).append(countChars);
+				}
+				countChars = 1;
+				charCompare = currentChar;
+			}
+
+		}
+		if (countChars != 0) {
+			result.append(charCompare).append(countChars);
+		}
+		return result.toString();
+	}
+
 }

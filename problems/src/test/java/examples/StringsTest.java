@@ -37,4 +37,12 @@ public class StringsTest {
 		assertEquals(new String(Strings.ReplacePercent20(input)), new String(output));
 	}
 
+	@Test
+	public void testCompressionCount() {
+		String originalMsg = "aabcccccaaa";
+		String resultMsg = "a2b1c5a3";
+		assertEquals(Strings.compress(originalMsg), resultMsg);
+
+	}
+
 }
