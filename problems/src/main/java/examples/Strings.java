@@ -87,4 +87,8 @@ public class Strings {
 		return result.toString();
 	}
 
+	public static void rotate(int[][] inputMatrix) {
+
+	}
+
 }
