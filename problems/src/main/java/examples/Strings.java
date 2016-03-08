@@ -36,8 +36,6 @@ public class Strings {
 	public static char[] ReplacePercent20(char[] input) {
 		final int size = input.length;
 		char[] resultArray = new char[size];
-		boolean addChars = false;
-
 		int index = 0;
 		int indexCandidate = 0;
 		while (index < size || indexCandidate < size) {
@@ -85,10 +83,6 @@ public class Strings {
 			result.append(charCompare).append(countChars);
 		}
 		return result.toString();
-	}
-
-	public static void rotate(int[][] inputMatrix) {
-
 	}
 
 }
