@@ -85,4 +85,42 @@ public class Strings {
 		return result.toString();
 	}
 
+	public static boolean isSubstring(char[] string, char[] possibleSubstring) {
+		int indexSubstr = 0;
+		for (char strChar : string) {
+			if (strChar == possibleSubstring[indexSubstr] && indexSubstr < possibleSubstring.length) {
+				indexSubstr++;
+				if (indexSubstr == possibleSubstring.length) {
+					return true;
+				}
+			} else {
+				indexSubstr = 0;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isRotation(char[] inputString, char[] possibleRotation) {
+		int sizeInput = inputString.length;
+		int offset = 0;
+		for (char character : inputString) {
+			char[] rotation = setUpRotation(inputString, offset);
+			if (isSubstring(inputString, rotation)) {
+				return true;
+			}
+			offset += 1;
+		}
+
+		return false;
+	}
+
+	private static char[] setUpRotation(char[] inputString, int offset) {
+		int size = inputString.length;
+		char rotation[] = new char[size];
+		for (int index = 0; index < size; index++) {
+			rotation[index] = inputString[(index + offset) % size];
+		}
+		return rotation;
+	}
+
 }

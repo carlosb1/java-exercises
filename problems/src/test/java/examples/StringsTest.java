@@ -45,4 +45,14 @@ public class StringsTest {
 
 	}
 
+	@Test
+	public void testSubstring() {
+		assertTrue(Strings.isSubstring("Helloworld".toCharArray(), "world".toCharArray()));
+	}
+
+	@Test
+	public void testIsRotationString() {
+		assertTrue(Strings.isRotation("waterbottle".toCharArray(), "erbottlewat".toCharArray()));
+	}
+
 }
