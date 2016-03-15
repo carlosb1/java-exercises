@@ -34,10 +34,19 @@ public class ArraysTest {
 	@Test
 	public void testRotateMatrix() {
 		int[][] inputMatrix = initMatrix(10);
+		// printMatrix(inputMatrix);
+		int rotated[][] = Arrays.rotate(inputMatrix);
+		// System.out.println("---------------");
+		// printMatrix(rotated);
+	}
+
+	@Test
+	public void testMarkZerosRowsCols() {
+		int[][] inputMatrix = initMatrix(10);
 		printMatrix(inputMatrix);
-		int rotated[][] = Arrays.rotate(inputMatrix, 10);
+		int marked[][] = Arrays.markZeros(inputMatrix);
 		System.out.println("---------------");
-		printMatrix(rotated);
+		printMatrix(marked);
 	}
 
 }
