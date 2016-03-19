@@ -9,7 +9,7 @@ import examples.Trees.BinaryTree;
 public class TreesBinaryTreeTest {
 
 	@Test
-	public void insertNode() {
+	public void insertNodeLeftCorrectly() {
 		BinaryTree node = new BinaryTree(2);
 		node.insert(new BinaryTree(1));
 		assertTrue(node.left().value == 1);
