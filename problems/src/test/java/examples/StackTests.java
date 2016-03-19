@@ -27,7 +27,6 @@ public class StackTests {
 
 	@Test
 	public void testSort() {
-
 		Stack<Integer> values = new Stack<Integer>();
 		values.push(3);
 		values.push(1);
