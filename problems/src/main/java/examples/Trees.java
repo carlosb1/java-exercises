@@ -55,8 +55,8 @@ public class Trees {
 	public static class BinaryTree extends Node {
 		public BinaryTree(Integer value) {
 			super(value);
-			this.adjacent.add(new NullNode());
-			this.adjacent.add(new NullNode());
+			this.adjacent.add(new NullBinaryTree());
+			this.adjacent.add(new NullBinaryTree());
 		}
 
 		public void insert(Node node) {
@@ -152,21 +152,27 @@ public class Trees {
 			this.second = second;
 		}
 
-		public static <T1, T2> Pair makePair(T1 first, T2 second) {
-			return new Pair(first, second);
+		public static <T1, T2> Pair<T1, T2> makePair(T1 first, T2 second) {
+			return new Pair<T1, T2>(first, second);
 		}
 	}
 
-	public static Pair<Boolean, Integer> IsBalanced(BinaryTree node, int level) {
-		Pair<Boolean, Integer> resultRight = IsBalanced(node.right(), level + 1);
-		Pair<Boolean, Integer> resultLeft = IsBalanced(node.left(), level + 1);
-		/*
-		 * if (resultRight.first && resultLeft.first &&
-		 * Math.abs(resultRight.second - resultLeft.second) <= 1) { return
-		 * Pair.makePair(true, Math.max(resultRight.second, resultLeft.second) +
-		 * 1); }
-		 */
-		return Pair.makePair(false, 0);
+	public static Pair<Boolean, Integer> IsBalanced(BinaryTree node) {
+		Pair<Boolean, Integer> resultRight = Pair.makePair(true, 0);
+		Pair<Boolean, Integer> resultLeft = Pair.makePair(true, 0);
+		if (!node.right().isNull()) {
+			resultRight = IsBalanced(node.right());
+		}
+		if (!node.left().isNull()) {
+			resultLeft = IsBalanced(node.left());
+		}
+		int height = Math.max(resultRight.second, resultLeft.second) + 1;
+
+		if (resultRight.first && resultLeft.first && Math.abs(resultRight.second - resultLeft.second) <= 1) {
+			return Pair.makePair(true, height);
+		}
+
+		return Pair.makePair(false, height);
 	}
 
 }
