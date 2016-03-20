@@ -21,6 +21,13 @@ public class Trees {
 
 		public abstract void insert(Node node);
 
+		public abstract Node search(Node node);
+
+		@Override
+		public String toString() {
+			return "Node [visited=" + visited + ", adjacent=" + adjacent + ", value=" + value + "]";
+		}
+
 	}
 
 	public static class NullNode extends Node {
@@ -36,6 +43,11 @@ public class Trees {
 
 		@Override
 		public void insert(Node node) {
+		}
+
+		@Override
+		public Node search(Node node) {
+			return new NullNode();
 		}
 
 	}
@@ -74,37 +86,87 @@ public class Trees {
 			return node.value == this.value;
 		}
 
-		public Node left() {
+		public BinaryTree left() {
 			if (this.adjacent.size() == 0)
-				return new NullNode();
-			return this.adjacent.get(0);
+				return new NullBinaryTree();
+			return (BinaryTree) this.adjacent.get(0);
 		}
 
 		public void setLeft(Node node) {
 			this.adjacent.set(0, node);
 		}
 
-		public Node right() {
+		public BinaryTree right() {
 			if (this.adjacent.size() < 2) {
-				return new NullNode();
+				return new NullBinaryTree();
 			}
-			return this.adjacent.get(1);
+			return (BinaryTree) this.adjacent.get(1);
 		}
 
 		public void setRight(Node node) {
 			this.adjacent.set(1, node);
 		}
 
+		@Override
+		public Node search(Node node) {
+			if (isSameNode(node)) {
+				// TODO add test for this case
+				return this;
+			}
+			Node result = new NullNode();
+			if (node.value < this.value) {
+				if (this.left().isNull()) {
+					result = new NullNode();
+				} else {
+					result = this.left().search(node);
+				}
+			} else if (node.value > this.value) {
+				if (this.right().isNull()) {
+					result = new NullNode();
+				} else {
+					result = this.right().search(node);
+				}
+			}
+			return result;
+		}
 	}
 
-	public static boolean IsBalanced(Node node) {
+	public static class NullBinaryTree extends BinaryTree {
+		public NullBinaryTree() {
+			super(-1);
+		}
 
+		@Override
+		public boolean isNull() {
+			return true;
+		}
+
+	}
+
+	public static class Pair<T1, T2> {
+		T1 first;
+		T2 second;
+
+		private Pair(T1 first, T2 second) {
+			this.first = first;
+			this.second = second;
+		}
+
+		public static <T1, T2> Pair makePair(T1 first, T2 second) {
+			return new Pair(first, second);
+		}
+	}
+
+	public static Pair<Boolean, Integer> IsBalanced(BinaryTree node, int level) {
+		Pair<Boolean, Integer> resultRight = IsBalanced(node.right(), level + 1);
+		Pair<Boolean, Integer> resultLeft = IsBalanced(node.left(), level + 1);
 		/*
-		 * if (node.adjacent.size() > 2) { return false; }
-		 * 
-		 * IsBalanced(node.adjacent.get(0));
+		 * if (resultRight.first && resultLeft.first &&
+		 * Math.abs(resultRight.second - resultLeft.second) <= 1) { return
+		 * Pair.makePair(true, Math.max(resultRight.second, resultLeft.second) +
+		 * 1); }
 		 */
-		return false;
+		return Pair.makePair(false, 0);
 	}
 
 }
