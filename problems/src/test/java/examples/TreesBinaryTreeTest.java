@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import examples.Trees.BinaryTree;
-import examples.Trees.Node;
 import examples.Trees.NullBinaryTree;
 import examples.Trees.Pair;
 
