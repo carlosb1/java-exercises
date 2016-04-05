@@ -1,5 +1,6 @@
 package examples;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import examples.Trees.BinaryTree;
 import examples.Trees.Node;
 import examples.Trees.NullBinaryTree;
+import examples.Trees.Pair;
 
 public class TreesBinaryTreeTest {
 
@@ -37,7 +39,22 @@ public class TreesBinaryTreeTest {
 		Integer values[] = { 2, 1, 3, 5, 7, 10 };
 		BinaryTree node = createBinaryTree(values);
 		Node result = node.search(new BinaryTree(7));
-		System.out.println(result);
+	}
+
+	@Test
+	public void isBalanced() {
+		Integer values[] = { 5, 3, 7, 1, 4, 6, 8 };
+		BinaryTree node = createBinaryTree(values);
+		Pair<Boolean, Integer> result = Trees.IsBalanced(node);
+		assertTrue(result.first);
+	}
+
+	@Test
+	public void isNotBalanced() {
+		Integer values[] = { 2, 1, 3, 5, 7, 10 };
+		BinaryTree node = createBinaryTree(values);
+		Pair<Boolean, Integer> result = Trees.IsBalanced(node);
+		assertFalse(result.first);
 	}
 
 	private BinaryTree createBinaryTree(Integer... values) {

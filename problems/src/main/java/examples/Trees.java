@@ -23,11 +23,6 @@ public class Trees {
 
 		public abstract Node search(Node node);
 
-		@Override
-		public String toString() {
-			return "Node [visited=" + visited + ", adjacent=" + adjacent + ", value=" + value + "]";
-		}
-
 	}
 
 	public static class NullNode extends Node {
@@ -53,6 +48,11 @@ public class Trees {
 	}
 
 	public static class BinaryTree extends Node {
+		public BinaryTree() {
+			super(new Integer(-1));
+
+		}
+
 		public BinaryTree(Integer value) {
 			super(value);
 			this.adjacent.add(new NullBinaryTree());
@@ -79,7 +79,6 @@ public class Trees {
 					this.right().insert(node);
 				}
 			}
-
 		}
 
 		private boolean isSameNode(Node node) {
@@ -129,16 +128,31 @@ public class Trees {
 			}
 			return result;
 		}
+
+		@Override
+		public String toString() {
+			return "Node [visited=" + visited + ", left=" + adjacent.get(0) + ", right=" + adjacent.get(1) + ", value=" + value + "]";
+		}
 	}
 
 	public static class NullBinaryTree extends BinaryTree {
 		public NullBinaryTree() {
-			super(-1);
+			super();
+		}
+
+		public NullBinaryTree(Integer value) {
+			super(value);
+			// TODO Auto-generated constructor stub
 		}
 
 		@Override
 		public boolean isNull() {
 			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "Node [null]";
 		}
 
 	}
