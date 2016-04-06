@@ -1,14 +1,42 @@
 package examples;
 
+import java.util.Stack;
+
 import examples.Node.NullNode;
 
 public class Graphs {
 	public static class DFS implements Searcher {
+		private Stack<Graph> stack;
+
+		public DFS() {
+			stack = new Stack<Graph>();
+		}
 
 		@Override
 		public Node run(Graph directedGraph, Graph node) {
-			// TODO Auto-generated method stub
+
+			node.visited = true;
+			if (isFound(node, directedGraph)) {
+				return node;
+			}
+			stack.push(node);
+			while (!stack.isEmpty()) {
+				Graph newNode = stack.pop();
+				for (Node child : newNode.adjacent) {
+					if (child.visited == false) {
+						child.visited = true;
+						if (isFound(child, directedGraph)) {
+							return child;
+						}
+						stack.push((Graph) child);
+					}
+				}
+			}
 			return new NullNode();
+		}
+
+		private boolean isFound(Node child, Graph directedGraph) {
+			return (child.value == directedGraph.value);
 		}
 
 	}
