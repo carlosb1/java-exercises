@@ -15,17 +15,17 @@ public class Graphs {
 		@Override
 		public Node run(Graph directedGraph, Graph node) {
 
-			node.visited = true;
+			directedGraph.visited = true;
 			if (isFound(node, directedGraph)) {
 				return node;
 			}
-			stack.push(node);
+			stack.push(directedGraph);
 			while (!stack.isEmpty()) {
 				Graph newNode = stack.pop();
 				for (Node child : newNode.adjacent) {
 					if (child.visited == false) {
 						child.visited = true;
-						if (isFound(child, directedGraph)) {
+						if (isFound(node, (Graph) child)) {
 							return child;
 						}
 						stack.push((Graph) child);
