@@ -1,10 +1,38 @@
 package examples;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Trees {
 
 	public static class BinaryTree extends Node {
 		public BinaryTree() {
 			super(new Integer(-1));
+
+		}
+
+		public static BinaryTree CreateBinaryMinimTree(List<Integer> values) {
+			Collections.sort(values);
+			if (values.size() == 1) {
+				return new BinaryTree(values.get(0));
+			} else if (values.size() == 2) {
+				BinaryTree tree = new BinaryTree(values.get(1));
+				tree.insert(new BinaryTree(values.get(0)));
+				return tree;
+			} else if (values.size() == 3) {
+				BinaryTree tree = new BinaryTree(values.get(1));
+				tree.insert(new BinaryTree(values.get(0)));
+				tree.insert(new BinaryTree(values.get(2)));
+				return tree;
+			} else {
+				int countHalf = (int) (values.size() / 2);
+				BinaryTree treeLeft = CreateBinaryMinimTree(values.subList(0, countHalf));
+				BinaryTree treeRight = CreateBinaryMinimTree(values.subList(countHalf + 1, values.size()));
+				BinaryTree tree = new BinaryTree(values.get(countHalf));
+				tree.insert(treeLeft);
+				tree.insert(treeRight);
+				return tree;
+			}
 
 		}
 

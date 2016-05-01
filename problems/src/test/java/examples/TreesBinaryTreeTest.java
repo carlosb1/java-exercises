@@ -56,6 +56,24 @@ public class TreesBinaryTreeTest {
 		assertFalse(result.first);
 	}
 
+	@Test
+	public void createMinimumHeightFine() {
+		Integer values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		BinaryTree node = Trees.BinaryTree.CreateBinaryMinimTree(java.util.Arrays.asList(values));
+		assertTrue(node.value == 6);
+		assertTrue(node.adjacent.get(0).value == 3);
+		assertTrue(node.adjacent.get(1).value == 9);
+
+		assertTrue(node.adjacent.get(0).adjacent.get(0).value == 2);
+		assertTrue(node.adjacent.get(0).adjacent.get(1).value == 5);
+		assertTrue(node.adjacent.get(0).adjacent.get(0).adjacent.get(0).value == 1);
+
+		assertTrue(node.adjacent.get(0).adjacent.get(1).adjacent.get(0).value == 4);
+		assertTrue(node.adjacent.get(1).adjacent.get(0).value == 8);
+		assertTrue(node.adjacent.get(1).adjacent.get(1).value == 10);
+		assertTrue(node.adjacent.get(1).adjacent.get(0).adjacent.get(0).value == 7);
+	}
+
 	private BinaryTree createBinaryTree(Integer... values) {
 		if (values.length == 0) {
 			return new NullBinaryTree();
