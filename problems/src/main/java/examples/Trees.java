@@ -1,11 +1,51 @@
 package examples;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Trees {
 
 	public static class BinaryTree extends Node {
+
+		public static List<List<BinaryTree>> iterate(BinaryTree binaryTree) {
+			LinkedBlockingQueue<List<BinaryTree>> valuesToAnalise = new LinkedBlockingQueue<List<BinaryTree>>();
+			List<List<BinaryTree>> result = new java.util.LinkedList<List<BinaryTree>>();
+			/* add graph to result */
+
+			if (!binaryTree.isNull()) {
+				List<BinaryTree> newList = new java.util.LinkedList<BinaryTree>();
+				newList.add(binaryTree);
+				valuesToAnalise.add(newList);
+				result.add(newList);
+			}
+
+			while (!valuesToAnalise.isEmpty()) {
+				List<BinaryTree> nodes = valuesToAnalise.poll();
+				List<BinaryTree> allChildren = new ArrayList<BinaryTree>();
+				for (BinaryTree node : nodes) {
+					List<BinaryTree> partOfChildren = listOfNodesToListOfBinaryTree(node.adjacent);
+					allChildren.addAll(partOfChildren);
+				}
+				if (!allChildren.isEmpty()) {
+					valuesToAnalise.add(allChildren);
+					result.add(allChildren);
+				}
+			}
+			return result;
+		}
+
+		private static List<BinaryTree> listOfNodesToListOfBinaryTree(List<Node> nodesChildren) {
+			List<BinaryTree> result = new java.util.LinkedList<BinaryTree>();
+			for (Node node : nodesChildren) {
+				if (!node.isNull()) {
+					result.add((BinaryTree) node);
+				}
+			}
+			return result;
+		}
+
 		public BinaryTree() {
 			super(new Integer(-1));
 
@@ -116,6 +156,25 @@ public class Trees {
 		public String toString() {
 			return "Node [visited=" + visited + ", left=" + adjacent.get(0) + ", right=" + adjacent.get(1) + ", value=" + value + "]";
 		}
+
+		public java.util.List<java.util.List<Integer>> createLists() {
+			java.util.LinkedList<java.util.List<Integer>> result = new java.util.LinkedList<java.util.List<Integer>>();
+			if (this.isNull()) {
+				return result;
+			}
+			java.util.List<Integer> list = new java.util.LinkedList<Integer>();
+			list.add(this.value);
+			result.add(list);
+			nativeCreateLists(this, result);
+			return result;
+		}
+
+		private void nativeCreateLists(BinaryTree binaryTree, java.util.List<java.util.List<Integer>> lists) {
+			if (binaryTree.adjacent.size() == 0) {
+
+			}
+		}
+
 	}
 
 	public static class NullBinaryTree extends BinaryTree {

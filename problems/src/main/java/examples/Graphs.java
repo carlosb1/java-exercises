@@ -5,8 +5,9 @@ import java.util.Stack;
 import examples.Node.NullNode;
 
 public class Graphs {
+
 	public static class DFS implements Searcher {
-		private Stack<Graph> stack;
+		private final Stack<Graph> stack;
 
 		public DFS() {
 			stack = new Stack<Graph>();
