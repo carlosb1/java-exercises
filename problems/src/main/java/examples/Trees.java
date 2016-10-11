@@ -9,7 +9,7 @@ public class Trees {
 
 	public static class BinaryTree extends Node {
 
-		public static List<List<BinaryTree>> iterate(BinaryTree binaryTree) {
+		public static List<List<BinaryTree>> iterateForLayer(BinaryTree binaryTree) {
 			LinkedBlockingQueue<List<BinaryTree>> valuesToAnalise = new LinkedBlockingQueue<List<BinaryTree>>();
 			List<List<BinaryTree>> result = new java.util.LinkedList<List<BinaryTree>>();
 			/* add graph to result */
@@ -211,6 +211,7 @@ public class Trees {
 		public static <T1, T2> Pair<T1, T2> makePair(T1 first, T2 second) {
 			return new Pair<T1, T2>(first, second);
 		}
+
 	}
 
 	public static Pair<Boolean, Integer> IsBalanced(BinaryTree node) {

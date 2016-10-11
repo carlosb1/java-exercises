@@ -87,10 +87,9 @@ public class TreesBinaryTreeTest {
 	public void createLayersFromTreeCorrectly() {
 		Integer values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		BinaryTree node = Trees.BinaryTree.CreateBinaryMinimTree(java.util.Arrays.asList(values));
-		List<List<BinaryTree>> result = BinaryTree.iterate(node);
+		List<List<BinaryTree>> result = BinaryTree.iterateForLayer(node);
 		assertTrue(result.size() == 4);
 		assertTrue(result.get(3).get(0).value == 1 && result.get(3).get(1).value == 4 & result.get(3).get(2).value == 7);
-
 	}
 
 	private BinaryTree createBinaryTree(Integer... values) {

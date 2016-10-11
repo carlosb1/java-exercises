@@ -18,6 +18,7 @@
     <module>code-jam</module>
     <module>java8-examples</module>
     <module>downloader-youtube</module>
+    <module>shopping-cart</module>
   </modules>
 
   <dependencies>
