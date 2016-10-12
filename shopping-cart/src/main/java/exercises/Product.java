@@ -1,10 +1,8 @@
 package exercises;
 
-import java.util.List;
-
 public class Product extends Item {
 
-	private final double price;
+	private double price;
 
 	public Product(double price) {
 		this.price = price;
@@ -14,8 +12,8 @@ public class Product extends Item {
 		return price;
 	}
 
-	public double calcule(List<Item> items) {
-		return price;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	public boolean isCoupon() {

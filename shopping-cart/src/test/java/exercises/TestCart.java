@@ -1,5 +1,6 @@
 package exercises;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -48,7 +49,26 @@ public class TestCart {
 		cart.addItem(new Product(2.0));
 		cart.addItem(new GlobalCoupon());
 		double totalPrice = cart.checkout();
-		assertTrue(2.1 == totalPrice);
+		assertEquals(2.1, totalPrice, 0.1);
+	}
+
+	@Test
+	public void addItemsAndApplyTwoTotalDiscountOk() {
+		cart.addItem(new Product(1.0));
+		cart.addItem(new Product(2.0));
+		cart.addItem(new GlobalCoupon());
+		cart.addItem(new GlobalCoupon());
+		double totalPrice = cart.checkout();
+		assertEquals(1.47, totalPrice, 0.1);
+	}
+
+	@Test
+	public void addItemsAndApplyNextItemDiscountOk() {
+		cart.addItem(new Product(1.0));
+		cart.addItem(new NextItemCoupon());
+		cart.addItem(new Product(2.0));
+		double totalPrice = cart.checkout();
+		assertEquals(2.0, totalPrice, 0.1);
 
 	}
 

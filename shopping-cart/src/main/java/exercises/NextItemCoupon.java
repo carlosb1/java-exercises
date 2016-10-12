@@ -1,21 +1,27 @@
 package exercises;
 
 import java.util.LinkedList;
+import java.util.List;
 
-public class GlobalCoupon extends Item implements Coupon {
-	private static final double PERCENTAGE = 30.0;
+public class NextItemCoupon extends Item implements Coupon {
 
-	public boolean isCoupon() {
-		return true;
-	}
+	private static final double PERCENTAGE = 50;
 
 	public void apply(int currentIndex, LinkedList<Item> items) {
-		for (Item item : items) {
+		List<Item> subItems = items.subList(currentIndex, items.size());
+		for (Item item : subItems) {
 			if (!item.isCoupon()) {
 				// TODO it is possible to improve?
 				Product product = (Product) item;
 				product.setPrice(product.getPrice() - (product.getPrice() / 100.0) * PERCENTAGE);
+				return;
 			}
 		}
 	}
+
+	@Override
+	public boolean isCoupon() {
+		return true;
+	}
+
 }

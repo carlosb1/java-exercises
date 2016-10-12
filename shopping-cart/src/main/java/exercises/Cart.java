@@ -22,9 +22,20 @@ public class Cart {
 	}
 
 	public double checkout() {
+		/* apply coupon */
+		for (int index = 0; index < items.size(); index++) {
+			Item item = items.get(index);
+			if (item.isCoupon()) {
+				// TODO best way
+				((Coupon) item).apply(index, items);
+			}
+		}
+
 		double totalPrice = 0;
 		for (Item item : items) {
-			totalPrice += item.calcule(items);
+			if (!item.isCoupon()) {
+				totalPrice += ((Product) item).getPrice();
+			}
 		}
 
 		return totalPrice;
