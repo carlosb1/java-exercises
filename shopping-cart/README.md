@@ -4,5 +4,4 @@ Homework: Design/implement a shopping cart with different type of coupons:
 -> In this cart, it is possible add coupons which it will be applied for any type of item. 
 	-> discount for all 30 %.
 	-> discount of 50 % for next item.
-	-> discount of 25 % for second item of same type.
-    -> discount of +5% for each product.
+    -> discount of +5% for each product with a maximum discount of 50%

@@ -69,7 +69,36 @@ public class TestCart {
 		cart.addItem(new Product(2.0));
 		double totalPrice = cart.checkout();
 		assertEquals(2.0, totalPrice, 0.1);
+	}
 
+	@Test
+	public void addItemsAndApplyTwoDifsDiscountsOk() {
+		cart.addItem(new Product(1.0));
+		cart.addItem(new GlobalCoupon());
+		cart.addItem(new NextItemCoupon());
+		cart.addItem(new Product(2.0));
+		double totalPrice = cart.checkout();
+		assertEquals(1.4, totalPrice, 0.1);
+	}
+
+	@Test
+	public void addItemsNumberItemDiscountOk() {
+		cart.addItem(new Product(1.0));
+		cart.addItem(new NumberItemsCoupon());
+		cart.addItem(new Product(2.0));
+		double totalPrice = cart.checkout();
+		assertEquals(2.7, totalPrice, 0.1);
+	}
+
+	@Test
+	public void addItemsAndApplyNumberItemDiscountAndMoreOk() {
+		cart.addItem(new Product(1.0));
+		cart.addItem(new NumberItemsCoupon());
+		cart.addItem(new NextItemCoupon());
+		cart.addItem(new GlobalCoupon());
+		cart.addItem(new Product(2.0));
+		double totalPrice = cart.checkout();
+		assertEquals((1.8 - 0.54), totalPrice, 0.1);
 	}
 
 }
