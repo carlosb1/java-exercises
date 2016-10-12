@@ -31,6 +31,12 @@ public class TestItem {
 	}
 
 	@Test
+	public void productIsNotNullOk() {
+		Product product = new Product(1.0);
+		assertTrue(!product.isNull());
+	}
+
+	@Test
 	public void productCheckIsCouponOk() {
 		Product product = new Product(1.0);
 		assertTrue(!product.isCoupon());
@@ -41,6 +47,12 @@ public class TestItem {
 	public void createGlobalCouponOk() {
 		GlobalCoupon coupon = new GlobalCoupon();
 		assertTrue(coupon.isCoupon());
+	}
+
+	@Test
+	public void couponIsNotNullOk() {
+		GlobalCoupon coupon = new GlobalCoupon();
+		assertTrue(!coupon.isNull());
 	}
 
 	@Test

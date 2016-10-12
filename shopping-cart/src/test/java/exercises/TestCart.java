@@ -16,11 +16,11 @@ public class TestCart {
 		cart = new Cart();
 	}
 
-	// TODO create test for product and coupon
-	/*
-	 * @Test public void addItemOk() { cart.addItem(new Product(1.0));
-	 * assertTrue(cart.getItem(0).getPrice() == 1.0); }
-	 */
+	@Test
+	public void addItemOk() {
+		cart.addItem(new Product(1.0));
+		assertTrue(!cart.getItem(0).isNull());
+	}
 
 	@Test
 	public void getItemIncorrect() {
