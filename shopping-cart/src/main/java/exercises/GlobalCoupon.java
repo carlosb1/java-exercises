@@ -3,23 +3,12 @@ package exercises;
 import java.util.List;
 
 public class GlobalCoupon extends Item {
-
-	public GlobalCoupon(double price) {
-		super(price);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GlobalCoupon() {
-		// TODO change this type of constructor
-		super(-1.0);
-	}
-
-	// TODO refactor
 	public double calcule(List<Item> items) {
 		double total = 0;
 		for (Item item : items) {
 			if (!item.isCoupon()) {
-				total += item.getPrice();
+				// TODO it is possible to improve?
+				total += item.calcule(items);
 			}
 		}
 		// TODO create constants
@@ -27,7 +16,6 @@ public class GlobalCoupon extends Item {
 		return -discount;
 	}
 
-	// TODO move this method
 	public boolean isCoupon() {
 		return true;
 	}

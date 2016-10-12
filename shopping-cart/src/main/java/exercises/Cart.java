@@ -15,7 +15,7 @@ public class Cart {
 
 	public Item getItem(int i) {
 		// TODO refactor to null object
-		Item item = new Item(-1.0);
+		Item item = new NullItem();
 		if (i < 0 || i >= this.items.size()) {
 			return item;
 		}
@@ -25,11 +25,7 @@ public class Cart {
 	public double checkout() {
 		double totalPrice = 0;
 		for (Item item : items) {
-			if (!item.isCoupon()) {
-				totalPrice += item.getPrice();
-			} else {
-				totalPrice += item.calcule(items);
-			}
+			totalPrice += item.calcule(items);
 		}
 
 		return totalPrice;
