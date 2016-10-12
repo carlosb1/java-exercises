@@ -3,6 +3,8 @@ package exercises;
 import java.util.List;
 
 public class GlobalCoupon extends Item {
+	private static final double PERCENTAGE = 30.0;
+
 	public double calcule(List<Item> items) {
 		double total = 0;
 		for (Item item : items) {
@@ -11,8 +13,7 @@ public class GlobalCoupon extends Item {
 				total += item.calcule(items);
 			}
 		}
-		// TODO create constants
-		double discount = (total / 100.0) * 30.0;
+		double discount = (total / 100.0) * PERCENTAGE;
 		return -discount;
 	}
 

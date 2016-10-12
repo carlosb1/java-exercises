@@ -8,13 +8,12 @@ public class NullItem extends Item {
 		return true;
 	}
 
+	// TODO add test for null item
 	public double calcule(List<Item> items) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	public boolean isCoupon() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

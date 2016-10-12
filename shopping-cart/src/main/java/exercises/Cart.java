@@ -14,7 +14,6 @@ public class Cart {
 	}
 
 	public Item getItem(int i) {
-		// TODO refactor to null object
 		Item item = new NullItem();
 		if (i < 0 || i >= this.items.size()) {
 			return item;
