@@ -27,4 +27,29 @@ public class TestCart {
 		assertTrue(cart.getItem(0).getPrice() == -1.0);
 	}
 
+	@Test
+	public void addItemCheckoutOk() {
+		cart.addItem(new Item(1.0));
+		double totalPrice = cart.checkout();
+		assertTrue(1.0 == totalPrice);
+	}
+
+	@Test
+	public void addMultipleItemsCheckoutOk() {
+		cart.addItem(new Item(1.0));
+		cart.addItem(new Item(2.0));
+		double totalPrice = cart.checkout();
+		assertTrue(3.0 == totalPrice);
+	}
+
+	@Test
+	public void addItemsAndTotalDiscountOk() {
+		cart.addItem(new Item(1.0));
+		cart.addItem(new Item(2.0));
+		cart.addItem(new GlobalCoupon());
+		double totalPrice = cart.checkout();
+		assertTrue(2.1 == totalPrice);
+
+	}
+
 }

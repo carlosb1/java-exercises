@@ -22,4 +22,17 @@ public class Cart {
 		return this.items.get(i);
 	}
 
+	public double checkout() {
+		double totalPrice = 0;
+		for (Item item : items) {
+			if (!item.isCoupon()) {
+				totalPrice += item.getPrice();
+			} else {
+				totalPrice += item.calcule(items);
+			}
+		}
+
+		return totalPrice;
+	}
+
 }
