@@ -7,6 +7,9 @@ import java.util.LinkedList;
 
 import org.junit.Test;
 
+import coupons.GlobalCoupon;
+import coupons.NextItemCoupon;
+
 public class TestItem {
 
 	@Test

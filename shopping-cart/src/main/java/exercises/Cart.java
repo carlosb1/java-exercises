@@ -2,6 +2,8 @@ package exercises;
 
 import java.util.LinkedList;
 
+import coupons.Coupon;
+
 public class Cart {
 	private final LinkedList<Item> items;
 

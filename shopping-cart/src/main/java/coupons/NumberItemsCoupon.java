@@ -1,6 +1,9 @@
-package exercises;
+package coupons;
 
 import java.util.LinkedList;
+
+import exercises.Item;
+import exercises.Product;
 
 public class NumberItemsCoupon extends Item implements Coupon {
 

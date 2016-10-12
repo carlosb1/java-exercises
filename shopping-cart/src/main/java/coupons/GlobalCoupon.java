@@ -1,6 +1,9 @@
-package exercises;
+package coupons;
 
 import java.util.LinkedList;
+
+import exercises.Item;
+import exercises.Product;
 
 public class GlobalCoupon extends Item implements Coupon {
 	private static final double PERCENTAGE = 30.0;

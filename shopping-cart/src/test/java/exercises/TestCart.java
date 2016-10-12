@@ -4,13 +4,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import coupons.NextItemCoupon;
+import exercises.ItemFactory.TypeCoupon;
 
 /**
  * Unit test for simple App.
  */
 public class TestCart {
 	public Cart cart;
+	private static ItemFactory factoryItem;
+
+	@BeforeClass
+	public static void allSetUp() {
+		factoryItem = new ItemFactory();
+	}
 
 	@Before
 	public void setUp() {
@@ -44,20 +54,20 @@ public class TestCart {
 	}
 
 	@Test
-	public void addItemsAndTotalDiscountOk() {
+	public void addItemsAndTotalDiscountOk() throws Exception {
 		cart.addItem(new Product(1.0));
 		cart.addItem(new Product(2.0));
-		cart.addItem(new GlobalCoupon());
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.GLOBAL));
 		double totalPrice = cart.checkout();
 		assertEquals(2.1, totalPrice, 0.1);
 	}
 
 	@Test
-	public void addItemsAndApplyTwoTotalDiscountOk() {
+	public void addItemsAndApplyTwoTotalDiscountOk() throws Exception {
 		cart.addItem(new Product(1.0));
 		cart.addItem(new Product(2.0));
-		cart.addItem(new GlobalCoupon());
-		cart.addItem(new GlobalCoupon());
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.GLOBAL));
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.GLOBAL));
 		double totalPrice = cart.checkout();
 		assertEquals(1.47, totalPrice, 0.1);
 	}
@@ -72,30 +82,30 @@ public class TestCart {
 	}
 
 	@Test
-	public void addItemsAndApplyTwoDifsDiscountsOk() {
+	public void addItemsAndApplyTwoDifsDiscountsOk() throws Exception {
 		cart.addItem(new Product(1.0));
-		cart.addItem(new GlobalCoupon());
-		cart.addItem(new NextItemCoupon());
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.GLOBAL));
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.NEXTITEM));
 		cart.addItem(new Product(2.0));
 		double totalPrice = cart.checkout();
 		assertEquals(1.4, totalPrice, 0.1);
 	}
 
 	@Test
-	public void addItemsNumberItemDiscountOk() {
+	public void addItemsNumberItemDiscountOk() throws Exception {
 		cart.addItem(new Product(1.0));
-		cart.addItem(new NumberItemsCoupon());
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.NUMBERITEMS));
 		cart.addItem(new Product(2.0));
 		double totalPrice = cart.checkout();
 		assertEquals(2.7, totalPrice, 0.1);
 	}
 
 	@Test
-	public void addItemsAndApplyNumberItemDiscountAndMoreOk() {
+	public void addItemsAndApplyNumberItemDiscountAndMoreOk() throws Exception {
 		cart.addItem(new Product(1.0));
-		cart.addItem(new NumberItemsCoupon());
-		cart.addItem(new NextItemCoupon());
-		cart.addItem(new GlobalCoupon());
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.NUMBERITEMS));
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.NEXTITEM));
+		cart.addItem(factoryItem.makeCoupon(TypeCoupon.GLOBAL));
 		cart.addItem(new Product(2.0));
 		double totalPrice = cart.checkout();
 		assertEquals((1.8 - 0.54), totalPrice, 0.1);

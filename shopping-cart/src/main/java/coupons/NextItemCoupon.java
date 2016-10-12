@@ -1,7 +1,10 @@
-package exercises;
+package coupons;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import exercises.Item;
+import exercises.Product;
 
 public class NextItemCoupon extends Item implements Coupon {
 
