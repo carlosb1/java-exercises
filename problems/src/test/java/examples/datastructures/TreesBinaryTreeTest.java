@@ -1,4 +1,4 @@
-package examples;
+package examples.datastructures;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import examples.Trees.BinaryTree;
-import examples.Trees.NullBinaryTree;
-import examples.Trees.Pair;
+import examples.datastructures.Trees.BinaryTree;
+import examples.datastructures.Trees.NullBinaryTree;
+import examples.datastructures.Trees.Pair;
 
 public class TreesBinaryTreeTest {
 

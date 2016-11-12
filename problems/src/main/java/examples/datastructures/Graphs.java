@@ -1,8 +1,8 @@
-package examples;
+package examples.datastructures;
 
 import java.util.Stack;
 
-import examples.Node.NullNode;
+import examples.datastructures.Node.NullNode;
 
 public class Graphs {
 

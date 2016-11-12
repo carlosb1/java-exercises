@@ -1,4 +1,4 @@
-package examples;
+package examples.datastructures;
 
 import static org.junit.Assert.assertEquals;
 

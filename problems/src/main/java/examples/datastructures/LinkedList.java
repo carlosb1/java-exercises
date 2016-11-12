@@ -1,4 +1,4 @@
-package examples;
+package examples.datastructures;
 
 //TODO ADD null object
 public class LinkedList<T> {

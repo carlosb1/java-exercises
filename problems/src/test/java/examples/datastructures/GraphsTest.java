@@ -1,10 +1,10 @@
-package examples;
+package examples.datastructures;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import examples.Graphs.DirectedGraph;
+import examples.datastructures.Graphs.DirectedGraph;
 
 public class GraphsTest {
 

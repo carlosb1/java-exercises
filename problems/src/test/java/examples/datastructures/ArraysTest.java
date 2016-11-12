@@ -1,4 +1,4 @@
-package examples;
+package examples.datastructures;
 
 import java.util.Random;
 

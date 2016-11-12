@@ -1,4 +1,4 @@
-package examples;
+package examples.datastructures;
 
 public class Strings {
 

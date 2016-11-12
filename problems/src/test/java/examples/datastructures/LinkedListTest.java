@@ -1,11 +1,11 @@
-package examples;
+package examples.datastructures;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import examples.LinkedList.Node;
+import examples.datastructures.LinkedList.Node;
 
 /**
  * Unit tests for LinkedList implementation
