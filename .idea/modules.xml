@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/downloader-youtube/downloader-youtube.iml" filepath="$PROJECT_DIR$/downloader-youtube/downloader-youtube.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-exercises.iml" filepath="$PROJECT_DIR$/java-exercises.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java8-examples/java8-examples.iml" filepath="$PROJECT_DIR$/java8-examples/java8-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/problems/problems.iml" filepath="$PROJECT_DIR$/problems/problems.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopping-cart/shopping-cart.iml" filepath="$PROJECT_DIR$/shopping-cart/shopping-cart.iml" />
+    </modules>
+  </component>
+</project>
