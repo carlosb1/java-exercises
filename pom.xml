@@ -14,11 +14,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <modules>
-	  <module>problems</module>
-    <module>code-jam</module>
+    <module>problems</module>
     <module>java8-examples</module>
     <module>downloader-youtube</module>
     <module>shopping-cart</module>
+    <module>mongodb</module>
   </modules>
 
   <dependencies>
