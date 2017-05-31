@@ -1,7 +1,6 @@
 /**
  * Created by carlos on 5/30/17.
  */
-public class CofeeMakerAPI {
     public interface CoffeeMakerAPI {
         public static CoffeeMakerAPI api = null; // set by main.
 
@@ -84,4 +83,3 @@ public class CofeeMakerAPI {
         public static final int VALVE_OPEN = 0;
         public static final int VALVE_CLOSED = 1;
     }
-}

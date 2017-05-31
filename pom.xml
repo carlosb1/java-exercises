@@ -19,6 +19,7 @@
     <module>downloader-youtube</module>
     <module>shopping-cart</module>
     <module>mongodb</module>
+      <module>coffe_machine_api</module>
   </modules>
 
   <dependencies>
