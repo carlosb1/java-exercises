@@ -20,6 +20,7 @@
     <module>shopping-cart</module>
     <module>mongodb</module>
       <module>coffe_machine_api</module>
+    <module>trains-road</module>
   </modules>
 
   <dependencies>
