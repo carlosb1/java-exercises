@@ -16,12 +16,18 @@ public class RoadOrganizerTest {
     }
 
     @Test
+    public void should_be_initialised_correctly() {
+        //TODO  add optional for not distance
+        int dist = roadOrganizer.distance("A","B");
+
+    }
+    @Test
     public void should_be_get_correctly_path_in_one_step()  {
         roadOrganizer.addPath(new TrainRoadPath("A","B",1));
         //TODO wrong test, it is necessary include weights
         int dist = roadOrganizer.distance("A","B");
         assertEquals(1,dist);
-
-
     }
+
+
 }
