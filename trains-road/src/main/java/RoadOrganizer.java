@@ -1,4 +1,10 @@
 public class RoadOrganizer {
-    public void run() {
+
+
+    public void addPath(String newPath) {
+    }
+
+    public int distance(String source, String target) {
+        return 0;
     }
 }
