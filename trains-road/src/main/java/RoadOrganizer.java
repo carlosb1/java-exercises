@@ -12,7 +12,11 @@ public class RoadOrganizer {
 
 
     public int distance(String source, String target) {
-        return this.stops.get(0).getWeight();
+        int distance = 0;
+        for (TrainRoadPath stop: stops) {
+            distance+=stop.getWeight();
+        }
+        return distance;
     }
 
     public void addPath(TrainRoadPath stop) {

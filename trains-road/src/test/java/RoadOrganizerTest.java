@@ -28,6 +28,14 @@ public class RoadOrganizerTest {
         int dist = roadOrganizer.distance("A","B");
         assertEquals(1,dist);
     }
+    @Test
+    public void should_be_correctly_path_in_two_steps() {
+        roadOrganizer.addPath(new TrainRoadPath("A","B",1));
+        roadOrganizer.addPath(new TrainRoadPath("B","C",2));
+        int dist = roadOrganizer.distance("A","C");
+        assertEquals(3,dist);
+    }
+
 
 
 }
