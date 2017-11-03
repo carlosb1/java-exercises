@@ -1,4 +1,3 @@
-
 public final class TrainRoadPath {
     private final String source;
     private final String target;
@@ -9,8 +8,17 @@ public final class TrainRoadPath {
         this.weight = weight;
     }
 
+
+    //TODO add lombok
     public int getWeight() {
-        return this.weight;
+        return weight;
     }
 
+    public String getTarget() {
+        return target;
+    }
+
+    public String getSource() {
+        return source;
+    }
 }
