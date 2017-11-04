@@ -49,7 +49,7 @@ public class RoadOrganizerTest {
         assertEquals(-1,dist);
     }
 
-/*
+
     @Test
     public void should_be_correctly_path_in_two_steps_with_different_paths() {
         roadOrganizer.addPath(new TrainRoadPath("A","B",1));
@@ -58,7 +58,7 @@ public class RoadOrganizerTest {
         int dist = roadOrganizer.distance("A","C");
         assertEquals(3,dist);
     }
-*/
+
 
 
 

@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class RoadOrganizer {
-    private HashMap<String,List<TrainRoadPath>> mapStops ;
+    private HashMap<String,ArrayList<TrainRoadPath>> mapStops ;
     public RoadOrganizer () {
         this.mapStops= new HashMap<>();
     }
@@ -9,7 +9,6 @@ public class RoadOrganizer {
 
 
     public int distance(String source, String target) {
-        //TODO add distance
         if (!isAvailable(target)) {
             return -1;
         }
@@ -19,8 +18,6 @@ public class RoadOrganizer {
 
 
         List<TrainRoadPath> steps = this.mapStops.get(source);
-
-        int distance = 0;
         boolean exit = false;
 
         Stack<TrainRoadPath> pendingToVisit = new Stack();
@@ -29,11 +26,27 @@ public class RoadOrganizer {
         while (!exit) {
             //TODO check if currentstop is null
             TrainRoadPath currentStop = null;
+
             for (TrainRoadPath stop: steps) {
-                currentStop  = stop;
-                visited.push(stop);
-                break;
+                if (currentStop == null) {
+                    currentStop = stop;
+                    visited.push(stop);
+                } else {
+                    pendingToVisit.push(stop);
+                }
             }
+
+            /* not found */
+            if (currentStop == null) {
+                if (pendingToVisit.empty()) {
+                    return -1;
+                } else {
+                    currentStop = pendingToVisit.pop();
+                    visited.push(currentStop);
+                }
+            }
+
+            /* is found or next searching */
             if (isTarget(target, currentStop)) {
                 exit = true;
             } else {
@@ -41,7 +54,7 @@ public class RoadOrganizer {
             }
         }
 
-        distance = visited.stream().mapToInt( newStop -> newStop.getWeight()).sum();
+        int distance = visited.stream().mapToInt( newStop -> newStop.getWeight()).sum();
         return distance;
     }
 
@@ -54,6 +67,26 @@ public class RoadOrganizer {
     }
 
     public void addPath(TrainRoadPath stop) {
-       this.mapStops.put(stop.getSource(), Arrays.asList(stop));this.mapStops.put(stop.getTarget(),Arrays.asList());
+        updateSourcePath(stop);
+
+        updateTargetPath(stop);
+    }
+
+    private void updateTargetPath(TrainRoadPath stop) {
+        if (!this.mapStops.containsKey(stop.getTarget())) {
+            this.mapStops.put(stop.getTarget(), new ArrayList<>());
+        }
+    }
+
+    private void updateSourcePath(TrainRoadPath stop) {
+        ArrayList<TrainRoadPath> pathsFromSources;
+        if (this.mapStops.containsKey(stop.getSource())) {
+           pathsFromSources = this.mapStops.get(stop.getSource());
+           pathsFromSources.add(stop);
+       } else {
+            pathsFromSources = new ArrayList();
+            pathsFromSources.add(stop);
+        }
+        this.mapStops.put(stop.getSource(), pathsFromSources);
     }
 }
