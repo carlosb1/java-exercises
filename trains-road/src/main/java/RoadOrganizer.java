@@ -33,9 +33,10 @@ public class RoadOrganizer {
                 }
             }
             if (isTarget(target, currentStop)) {
-                return distance;
+                exit = true;
+            } else {
+                steps = this.mapStops.get(currentStop.getTarget());
             }
-            steps = this.mapStops.get(currentStop.getTarget());
         }
 
         return distance;
