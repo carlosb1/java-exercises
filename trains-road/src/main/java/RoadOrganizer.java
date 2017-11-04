@@ -23,11 +23,15 @@ public class RoadOrganizer {
         int distance = 0;
         boolean exit = false;
 
+        Stack<TrainRoadPath> pendingToVisit = new Stack();
+        Stack<TrainRoadPath> visited = new Stack();
+
         while (!exit) {
+            //TODO check if currentstop is null
             TrainRoadPath currentStop = null;
             for (TrainRoadPath stop: steps) {
                 currentStop  = stop;
-                distance+=stop.getWeight();
+                visited.push(stop);
                 if (isTarget(target,currentStop)) {
                     break;
                 }
@@ -39,6 +43,7 @@ public class RoadOrganizer {
             }
         }
 
+        distance = visited.stream().mapToInt( newStop -> newStop.getWeight()).sum();
         return distance;
     }
 
