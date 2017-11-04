@@ -1,46 +1,56 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class RoadOrganizer {
-
-    private List<TrainRoadPath> stops;
-    private HashMap<String,List<String>> mapStops ;
+    private HashMap<String,List<TrainRoadPath>> mapStops ;
     public RoadOrganizer () {
         this.mapStops= new HashMap<>();
-        this.stops = new ArrayList<>();
     }
 
 
 
     public int distance(String source, String target) {
+        //TODO add distance
         if (!this.mapStops.containsKey(target)) {
             return -1;
         }
         if (!this.mapStops.containsKey(source)) {
             return -1;
         }
-        int distance = 0;
 
-        /*
-        String currentPoint = source
+
+        List<TrainRoadPath> steps = this.mapStops.get(source);
+
+        int distance = 0;
         boolean exit = false;
         while (!exit) {
-            if (!this.mapStops.containsKey())
+            TrainRoadPath currentStop = null;
+            for (TrainRoadPath stop: steps) {
+                currentStop  = stop;
+                distance+=stop.getWeight();
+                if (stop.getTarget().equals(target)) {
+                    break;
+                }
+            }
 
+            if (currentStop == null) {
+                if (!this.mapStops.containsKey(currentStop.getTarget())) {
+                    //Not found route
+                    return -1;
+                }
+            }
+            if (target.equals(currentStop.getTarget())) {
+                return distance;
+            }
+            steps = this.mapStops.get(currentStop.getTarget());
         }
-        */
 
-        for (TrainRoadPath stop: stops) {
-            distance+=stop.getWeight();
-        }
+
+
+
         return distance;
     }
 
     public void addPath(TrainRoadPath stop) {
-       this.mapStops.put(stop.getSource(), Arrays.asList(stop.getTarget()));
-        this.mapStops.put(stop.getTarget(),Arrays.asList());
-        this.stops.add(stop);
+       this.mapStops.put(stop.getSource(), Arrays.asList(stop));this.mapStops.put(stop.getTarget(),Arrays.asList());
     }
 }

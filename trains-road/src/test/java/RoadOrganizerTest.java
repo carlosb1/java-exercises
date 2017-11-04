@@ -1,8 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.file.Paths;
-
 import static junit.framework.TestCase.assertEquals;
 
 
