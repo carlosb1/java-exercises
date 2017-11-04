@@ -37,11 +37,21 @@ public class RoadOrganizerTest {
     }
 
     @Test
-    public void should_not_find_path_not_exist_entry() {
+    public void should_not_find_path_not_exist_target() {
         roadOrganizer.addPath(new TrainRoadPath("A","B",1));
         int dist = roadOrganizer.distance("A","C");
         assertEquals(-1,dist);
     }
+
+
+    @Test
+    public void should_not_find_path_not_exist_source() {
+        roadOrganizer.addPath(new TrainRoadPath("A","B",1));
+        int dist = roadOrganizer.distance("C","A");
+        assertEquals(-1,dist);
+    }
+
+
 
 
 

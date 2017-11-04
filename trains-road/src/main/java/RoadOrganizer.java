@@ -18,6 +18,9 @@ public class RoadOrganizer {
         if (!this.mapStops.containsKey(target)) {
             return -1;
         }
+        if (!this.mapStops.containsKey(source)) {
+            return -1;
+        }
         int distance = 0;
 
         /*
@@ -36,7 +39,7 @@ public class RoadOrganizer {
     }
 
     public void addPath(TrainRoadPath stop) {
-        this.mapStops.put(stop.getSource(), Arrays.asList(stop.getTarget()));
+       this.mapStops.put(stop.getSource(), Arrays.asList(stop.getTarget()));
         this.mapStops.put(stop.getTarget(),Arrays.asList());
         this.stops.add(stop);
     }
