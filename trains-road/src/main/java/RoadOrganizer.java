@@ -24,9 +24,7 @@ public class RoadOrganizer {
         Stack<TrainRoadPath> visited = new Stack();
 
         while (!exit) {
-            //TODO check if currentstop is null
             TrainRoadPath currentStop = null;
-
             for (TrainRoadPath stop: steps) {
                 if (currentStop == null) {
                     currentStop = stop;
@@ -36,26 +34,29 @@ public class RoadOrganizer {
                 }
             }
 
-            /* not found */
-            if (currentStop == null) {
-                if (pendingToVisit.empty()) {
-                    return -1;
-                } else {
+            if (!existAvailablePaths(pendingToVisit, currentStop)) {
+                return -1;
+            }
+            if (currentStop == null && !pendingToVisit.empty()) {
                     currentStop = pendingToVisit.pop();
                     visited.push(currentStop);
-                }
             }
-
             /* is found or next searching */
             if (isTarget(target, currentStop)) {
                 exit = true;
-            } else {
-                steps = this.mapStops.get(currentStop.getTarget());
+                continue;
             }
+            /* get next stops to visit */
+            steps = this.mapStops.get(currentStop.getTarget());
+
         }
 
         int distance = visited.stream().mapToInt( newStop -> newStop.getWeight()).sum();
         return distance;
+    }
+
+    private boolean existAvailablePaths(Stack<TrainRoadPath> pendingToVisit, TrainRoadPath currentStop) {
+        return currentStop != null || !pendingToVisit.empty();
     }
 
     private boolean isAvailable(String target) {
