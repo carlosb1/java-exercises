@@ -57,8 +57,8 @@ public class RoadOrganizerTest {
         roadOrganizer.addPath(new TrainRoadPath("B","D",2));
         int dist = roadOrganizer.distance("A","C");
         assertEquals(3,dist);
-    }*/
-
+    }
+*/
 
 
 

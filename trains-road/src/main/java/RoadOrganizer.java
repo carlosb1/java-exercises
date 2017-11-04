@@ -32,9 +32,7 @@ public class RoadOrganizer {
             for (TrainRoadPath stop: steps) {
                 currentStop  = stop;
                 visited.push(stop);
-                if (isTarget(target,currentStop)) {
-                    break;
-                }
+                break;
             }
             if (isTarget(target, currentStop)) {
                 exit = true;
