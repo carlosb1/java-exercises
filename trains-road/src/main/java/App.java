@@ -9,7 +9,9 @@ public class App
     {
 
         //TODO check for multiple creators, java 9 factory
+
        RoadOrganizer roadOrganizer = new RoadOrganizer();
+
 
     }
 }

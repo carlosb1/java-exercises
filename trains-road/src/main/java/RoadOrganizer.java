@@ -37,6 +37,7 @@ public class RoadOrganizer {
             if (!existAvailablePaths(pendingToVisit, currentStop)) {
                 return -1;
             }
+
             if (currentStop == null && !pendingToVisit.empty()) {
                     currentStop = pendingToVisit.pop();
                     visited.push(currentStop);
@@ -69,7 +70,6 @@ public class RoadOrganizer {
 
     public void addPath(TrainRoadPath stop) {
         updateSourcePath(stop);
-
         updateTargetPath(stop);
     }
 
