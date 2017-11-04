@@ -49,7 +49,6 @@ public class RoadOrganizer {
             }
             /* get next stops to visit */
             steps = this.mapStops.get(currentStop.getTarget());
-
         }
 
         int distance = visited.stream().mapToInt( newStop -> newStop.getWeight()).sum();

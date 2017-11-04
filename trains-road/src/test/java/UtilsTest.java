@@ -12,6 +12,7 @@ public class UtilsTest {
     @Test
     public void should_delimiter_correctly_with_whitespaces () throws IOException {
 
+
         InputStream in = IOUtils.toInputStream("AB1 AD2 BC2", "UTF-8");
         List<TrainRoadPath> values = Utils.Parse(in);
         assertEquals(3,values.size());
