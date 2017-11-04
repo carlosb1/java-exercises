@@ -60,6 +60,21 @@ public class RoadOrganizerTest {
     }
 
 
+    @Test
+    public void should_be_correctly_path_in_two_steps_with_different_paths_and_large_number_of_steps() {
+        roadOrganizer.addPath(new TrainRoadPath("A","B",1));
+        roadOrganizer.addPath(new TrainRoadPath("B","C",2));
+        roadOrganizer.addPath(new TrainRoadPath("C","D",2));
+        roadOrganizer.addPath(new TrainRoadPath("D","E",2));
+        roadOrganizer.addPath(new TrainRoadPath("B","D",2));
+        roadOrganizer.addPath(new TrainRoadPath("A","S",2));
+        roadOrganizer.addPath(new TrainRoadPath("S","V",2));
+        roadOrganizer.addPath(new TrainRoadPath("R","D",2));
+        roadOrganizer.addPath(new TrainRoadPath("E","F",2));
+        int dist = roadOrganizer.distance("A","F");
+        assertEquals(9,dist);
+    }
+
 
 
 
