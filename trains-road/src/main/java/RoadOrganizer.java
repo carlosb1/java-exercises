@@ -10,10 +10,10 @@ public class RoadOrganizer {
 
     public int distance(String source, String target) {
         //TODO add distance
-        if (!this.mapStops.containsKey(target)) {
+        if (!isAvailable(target)) {
             return -1;
         }
-        if (!this.mapStops.containsKey(source)) {
+        if (!isAvailable(source)) {
             return -1;
         }
 
@@ -22,32 +22,31 @@ public class RoadOrganizer {
 
         int distance = 0;
         boolean exit = false;
+
         while (!exit) {
             TrainRoadPath currentStop = null;
             for (TrainRoadPath stop: steps) {
                 currentStop  = stop;
                 distance+=stop.getWeight();
-                if (stop.getTarget().equals(target)) {
+                if (isTarget(target,currentStop)) {
                     break;
                 }
             }
-
-            if (currentStop == null) {
-                if (!this.mapStops.containsKey(currentStop.getTarget())) {
-                    //Not found route
-                    return -1;
-                }
-            }
-            if (target.equals(currentStop.getTarget())) {
+            if (isTarget(target, currentStop)) {
                 return distance;
             }
             steps = this.mapStops.get(currentStop.getTarget());
         }
 
-
-
-
         return distance;
+    }
+
+    private boolean isAvailable(String target) {
+        return this.mapStops.containsKey(target);
+    }
+
+    private boolean isTarget(String target, TrainRoadPath currentStop) {
+        return target.equals(currentStop.getTarget());
     }
 
     public void addPath(TrainRoadPath stop) {
