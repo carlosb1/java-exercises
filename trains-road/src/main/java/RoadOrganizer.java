@@ -1,7 +1,9 @@
+import models.TrainPath;
+
 import java.util.*;
 
 public class RoadOrganizer {
-    private HashMap<String,ArrayList<TrainRoadPath>> mapStops ;
+    private HashMap<String,ArrayList<TrainPath>> mapStops ;
     public RoadOrganizer () {
         this.mapStops= new HashMap<>();
     }
@@ -17,15 +19,15 @@ public class RoadOrganizer {
         }
 
 
-        List<TrainRoadPath> steps = this.mapStops.get(source);
+        List<TrainPath> steps = this.mapStops.get(source);
         boolean exit = false;
 
-        Stack<TrainRoadPath> pendingToVisit = new Stack();
-        Stack<TrainRoadPath> visited = new Stack();
+        Stack<TrainPath> pendingToVisit = new Stack();
+        Stack<TrainPath> visited = new Stack();
 
         while (!exit) {
-            TrainRoadPath currentStop = null;
-            for (TrainRoadPath stop: steps) {
+            TrainPath currentStop = null;
+            for (TrainPath stop: steps) {
                 if (currentStop == null) {
                     currentStop = stop;
                     visited.push(stop);
@@ -55,7 +57,7 @@ public class RoadOrganizer {
         return distance;
     }
 
-    private boolean existAvailablePaths(Stack<TrainRoadPath> pendingToVisit, TrainRoadPath currentStop) {
+    private boolean existAvailablePaths(Stack<TrainPath> pendingToVisit, TrainPath currentStop) {
         return currentStop != null || !pendingToVisit.empty();
     }
 
@@ -63,23 +65,23 @@ public class RoadOrganizer {
         return this.mapStops.containsKey(target);
     }
 
-    private boolean isTarget(String target, TrainRoadPath currentStop) {
+    private boolean isTarget(String target, TrainPath currentStop) {
         return target.equals(currentStop.getTarget());
     }
 
-    public void addPath(TrainRoadPath stop) {
+    public void addPath(TrainPath stop) {
         updateSourcePath(stop);
         updateTargetPath(stop);
     }
 
-    private void updateTargetPath(TrainRoadPath stop) {
+    private void updateTargetPath(TrainPath stop) {
         if (!this.mapStops.containsKey(stop.getTarget())) {
             this.mapStops.put(stop.getTarget(), new ArrayList<>());
         }
     }
 
-    private void updateSourcePath(TrainRoadPath stop) {
-        ArrayList<TrainRoadPath> pathsFromSources;
+    private void updateSourcePath(TrainPath stop) {
+        ArrayList<TrainPath> pathsFromSources;
         if (this.mapStops.containsKey(stop.getSource())) {
            pathsFromSources = this.mapStops.get(stop.getSource());
            pathsFromSources.add(stop);

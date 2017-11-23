@@ -1,3 +1,4 @@
+import models.TrainPath;
 import org.junit.Test;
 import services.searcher.SearchService;
 import services.searcher.TrainSearchService;
@@ -15,7 +16,7 @@ public class SearchServiceTest {
     @Test
     public void add_correctly_a_stop() {
         SearchService searchService = new TrainSearchService();
-        searchService.addPath( new TrainRoadPath("0","1",0));
+        searchService.addPath( new TrainPath("0","1",0));
         assertEquals(searchService.getAllStops(),1);
     }
 

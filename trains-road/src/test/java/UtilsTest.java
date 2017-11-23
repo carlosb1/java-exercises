@@ -1,4 +1,6 @@
 import java.util.List;
+
+import models.TrainPath;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
@@ -14,7 +16,7 @@ public class UtilsTest {
 
 
         InputStream in = IOUtils.toInputStream("AB1 AD2 BC2", "UTF-8");
-        List<TrainRoadPath> values = Utils.Parse(in);
+        List<TrainPath> values = Utils.Parse(in);
         assertEquals(3,values.size());
         assertEquals("A",values.get(0).getSource());
         assertEquals("B",values.get(0).getTarget());

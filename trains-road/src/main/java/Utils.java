@@ -1,5 +1,7 @@
 
 
+import models.TrainPath;
+
 import java.util.List;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,11 +10,11 @@ import java.util.Scanner;
 
 public class Utils {
 
-    public static List<TrainRoadPath> Parse(InputStream input) {
+    public static List<TrainPath> Parse(InputStream input) {
         Scanner scanner = new Scanner(input);
         scanner.useDelimiter("\\s");
 
-        List<TrainRoadPath> result = new ArrayList<TrainRoadPath>();
+        List<TrainPath> result = new ArrayList<TrainPath>();
 
         while (scanner.hasNext()) {
             String possibleStop = scanner.next();
@@ -28,7 +30,7 @@ public class Utils {
             } catch(Exception excp) {
                 continue;
             }
-            TrainRoadPath trainRoadPath = new TrainRoadPath(source,target,Integer.parseInt(weight));
+            TrainPath trainRoadPath = new TrainPath(source,target,Integer.parseInt(weight));
             result.add(trainRoadPath);
         }
         return result;

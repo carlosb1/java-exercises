@@ -1,3 +1,5 @@
+import models.TrainPath;
+
 import java.io.InputStream;
 import java.util.List;
 
@@ -10,8 +12,8 @@ public  class UserCLI {
         this.input = input;
     }
     public void update () {
-        List<TrainRoadPath> paths = Utils.Parse(input);
-        for (TrainRoadPath path : paths) {
+        List<TrainPath> paths = Utils.Parse(input);
+        for (TrainPath path : paths) {
             this.roadOrganizer.addPath(path);
         }
     }
