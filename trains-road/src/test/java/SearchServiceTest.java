@@ -19,5 +19,17 @@ public class SearchServiceTest {
         assertEquals(paths, Arrays.asList(path));
     }
 
+    @Test
+    public void find_route_for_two_path() {
+        SearchService searchService = new TrainSearchService();
+        Path path = new TrainPath("0","1",0);
+        Path pathTwo = new TrainPath("1","2",1);
+        searchService.addPath(path);
+        searchService.addPath(pathTwo);
+        List<Path> paths = searchService.findRoute("0","1");
+        assertEquals(paths, Arrays.asList(path));
+    }
+
+
 
 }
