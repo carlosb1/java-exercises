@@ -3,11 +3,10 @@ package services.searcher;
 
 import java.util.List;
 
-public interface SearchService {
+public interface SearchService<T extends Path> {
 
-    int getNumberOfStops();
 
-    void addPath(Path trainRoadPath);
+    void addPath(T trainRoadPath);
 
-    List<Path> findRoute(String source, String target);
+    List<T> findRoute(String source, String target);
 }

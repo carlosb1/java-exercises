@@ -2,27 +2,25 @@ package services.searcher;
 
 
 
+import models.TrainPath;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainSearchService implements SearchService {
-    private final List<Path> paths;
+public class TrainSearchService implements SearchService<TrainPath> {
+    private final List<TrainPath> paths;
     public TrainSearchService () {
-        this.paths = new ArrayList<Path>();
+        this.paths = new ArrayList<TrainPath>();
     }
 
-    @Override
-    public int getNumberOfStops() {
-        return paths.size();
-    }
 
     @Override
-    public void addPath(Path newPath) {
+    public void addPath(TrainPath newPath) {
         this.paths.add(newPath);
     }
 
     @Override
-    public List<Path> findRoute(String source, String target) {
+    public List<TrainPath> findRoute(String source, String target) {
         return this.paths;
     }
 }

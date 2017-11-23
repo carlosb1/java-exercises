@@ -24,4 +24,24 @@ public final class TrainPath implements Path {
     public int getWeight() {
         return weight;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TrainPath trainPath = (TrainPath) o;
+
+        if (weight != trainPath.weight) return false;
+        if (source != null ? !source.equals(trainPath.source) : trainPath.source != null) return false;
+        return target != null ? target.equals(trainPath.target) : trainPath.target == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = source != null ? source.hashCode() : 0;
+        result = 31 * result + (target != null ? target.hashCode() : 0);
+        result = 31 * result + weight;
+        return result;
+    }
 }
