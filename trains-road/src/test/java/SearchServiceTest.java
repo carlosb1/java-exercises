@@ -7,14 +7,17 @@ import static org.junit.Assert.assertEquals;
 public class SearchServiceTest {
 
     @Test
-    public void should_start_search_service() {
+    public void start_search_service_without_stops() {
         SearchService searchService = new TrainSearchService();
-
         assertEquals(searchService.getAllStops(),0);
-
-
-        //searchService.addStop(new TrainRoadPath("0,""1",1));
-       // searchService.addNewStop(new TrainRoadPath("0","1",1));
     }
+
+    @Test
+    public void add_correctly_a_stop() {
+        SearchService searchService = new TrainSearchService();
+        searchService.addPath( new TrainRoadPath("0","1",0));
+        assertEquals(searchService.getAllStops(),1);
+    }
+
 
 }

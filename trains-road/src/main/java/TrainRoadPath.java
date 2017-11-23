@@ -1,6 +1,6 @@
+import services.searcher.Path;
 
-
-public final class TrainRoadPath {
+public final class TrainRoadPath implements Path {
     private final String source;
     private final String target;
     private final int weight;
