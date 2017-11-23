@@ -12,12 +12,17 @@ public class TrainSearchService implements SearchService {
     }
 
     @Override
-    public int getAllStops() {
+    public int getNumberOfStops() {
         return paths.size();
     }
 
     @Override
     public void addPath(Path newPath) {
         this.paths.add(newPath);
+    }
+
+    @Override
+    public List<Path> findRoute(String source, String target) {
+        return this.paths;
     }
 }
