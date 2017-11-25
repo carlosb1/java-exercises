@@ -1,8 +1,6 @@
 package models;
 
-import services.searcher.Path;
-
-public final class TrainPath implements Path {
+public final class TrainPath {
     private final String source;
     private final String target;
     private final int weight;

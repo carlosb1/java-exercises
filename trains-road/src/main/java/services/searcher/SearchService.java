@@ -1,12 +1,14 @@
 package services.searcher;
 
 
+import models.TrainPath;
+
 import java.util.List;
 
-public interface SearchService<T extends Path> {
+public interface SearchService {
 
 
-    void addPath(T trainRoadPath);
+    void addPath(TrainPath trainRoadPath);
 
-    List<T> findRoute(String source, String target);
+    List<String> findRoute(String source, String target);
 }
