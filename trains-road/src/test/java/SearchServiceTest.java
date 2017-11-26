@@ -15,7 +15,7 @@ public class SearchServiceTest {
         TrainPath path = new TrainPath("0","1",0);
         searchService.addPath(path);
         List<String> paths = searchService.findRoute("0","1");
-        assertEquals(paths, Arrays.asList("0","1"));
+        assertEquals(Arrays.asList("0","1"),paths);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class SearchServiceTest {
         searchService.addPath(path);
         searchService.addPath(pathTwo);
         List<String> paths = searchService.findRoute("0","1");
-        assertEquals(paths, Arrays.asList("0","1"));
+        assertEquals( Arrays.asList("0","1"),paths);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class SearchServiceTest {
         searchService.addPath(path);
         searchService.addPath(pathTwo);
         List<String> paths = searchService.findRoute("0","2");
-        assertEquals(paths, Arrays.asList("0","1","2"));
+        assertEquals( Arrays.asList("0","1","2"),paths);
     }
 
     @Test
@@ -50,7 +50,39 @@ public class SearchServiceTest {
         searchService.addPath(pathTwo);
         searchService.addPath(pathThree);
         List<String> paths = searchService.findRoute("0","3");
-        assertEquals(paths, Arrays.asList("0","1","2","3"));
+        assertEquals(Arrays.asList("0","1","2","3"),paths);
+    }
+
+    @Test
+    public void find_route_with_multiple_stops_and_diff_bifurs() {
+        SearchService searchService = new TrainSearchService();
+        TrainPath path = new TrainPath("0","1",0);
+        TrainPath pathTwo = new TrainPath("1","2",1);
+        TrainPath pathThree = new TrainPath("2","3",1);
+        TrainPath pathFour = new TrainPath("2","4",1);
+        searchService.addPath(path);
+        searchService.addPath(pathTwo);
+        searchService.addPath(pathThree);
+        searchService.addPath(pathFour);
+        List<String> paths = searchService.findRoute("0","3");
+        assertEquals(Arrays.asList("0","1","2","3"),paths);
+    }
+
+    @Test
+    public void find_route_with_multiple_stops_and_find_shortest() {
+        SearchService searchService = new TrainSearchService();
+        TrainPath path = new TrainPath("0","1",0);
+        TrainPath pathTwo = new TrainPath("1","2",1);
+        TrainPath pathThree = new TrainPath("2","3",1);
+        TrainPath pathFour = new TrainPath("3","4",6);
+        TrainPath pathFive = new TrainPath("2","4",1);
+        searchService.addPath(path);
+        searchService.addPath(pathTwo);
+        searchService.addPath(pathThree);
+        searchService.addPath(pathFour);
+        searchService.addPath(pathFive);
+        List<String> paths = searchService.findRoute("0","4");
+        assertEquals(Arrays.asList("0","1","2","4"),paths);
     }
 
 

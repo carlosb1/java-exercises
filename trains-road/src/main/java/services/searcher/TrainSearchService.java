@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class TrainSearchService implements SearchService {
     private final Map<String,List<TrainPath>> paths;
     public TrainSearchService () {
-        this.paths = new HashMap<String,List<TrainPath>> ();
+        this.paths = new HashMap<> ();
     }
 
 
@@ -26,23 +26,6 @@ public class TrainSearchService implements SearchService {
         }
     }
 
-    private final class InfoVertice {
-        private final List<TrainPath> paths;
-        private  double cost;
-
-        InfoVertice (List<TrainPath> paths) {
-            this.paths = paths;
-            this.cost = Double.POSITIVE_INFINITY;
-        }
-
-        public double getCost() {
-            return cost;
-        }
-
-        public List<TrainPath> getPaths() {
-            return paths;
-        }
-    }
     @Override
     public List<String> findRoute(String source, String target) {
         //TODO add tests to check that it doesn't work with no source and target
@@ -54,44 +37,51 @@ public class TrainSearchService implements SearchService {
             return Arrays.asList();
         }
 */
-
-        Map<String, InfoVertice>  statusVertices = this.paths.entrySet().stream().collect(
+        Map<String, Double>  distances = this.paths.entrySet().stream().collect(
                 Collectors.toMap(
                         e->e.getKey(),
-                        e->new InfoVertice(e.getValue())
-                        ));
+                        e->Double.POSITIVE_INFINITY
+                ));
+
+        Map<String, String> finalPaths = new HashMap<>();
 
         List<String> shortestPath = new ArrayList<String>();
-        InfoVertice currentStop = statusVertices.get(source);
-        currentStop.cost = 0;
-        shortestPath.add(source);
-        currentStop.paths.stream().forEach(path -> statusVertices.get(path.getTarget()).cost=path.getWeight());
 
+        distances.put(source,0.);
+        String stop = source;
         boolean exit = false;
         while (!exit) {
-            Optional<TrainPath> foundPath = currentStop.paths.stream().filter(path -> !shortestPath.contains(path.getTarget())).min(Comparator.comparing(path -> statusVertices.get(path.getTarget()).cost));
-            if (foundPath.isPresent()) {
-                String nameStop = foundPath.get().getTarget();
-                shortestPath.add(nameStop);
+            shortestPath.add(stop);
+            this.paths.get(stop).stream().forEach(
+                    path -> {
+                        final double acumLength = (path.getWeight() + distances.get(path.getSource()));
+                        if (distances.get(path.getTarget()) >acumLength ) {
+                            distances.put(path.getTarget(),acumLength);
+                            finalPaths.put(path.getTarget(),path.getSource());
+                        }
 
-                if (nameStop.equals(target)) {
-                    exit = true;
-                    continue;
-                }
+                    }
 
-                currentStop = statusVertices.get(nameStop);
-                final double offsetCost = currentStop.cost;
-                currentStop.paths.stream().forEach(path -> statusVertices.get(path.getTarget()).cost=(path.getWeight()+offsetCost));
-            } else {
+            );
+            Optional<String> possibleNextStop = distances.entrySet().stream().filter(entry -> !shortestPath.contains(entry.getKey())).min(Comparator.comparing(entry -> entry.getValue())).map(entry -> entry.getKey());
+            if (!possibleNextStop.isPresent()) {
                 exit = true;
+                continue;
             }
+            stop = possibleNextStop.get();
+
         }
 
-        if (!shortestPath.get(shortestPath.size()-1).equals(target)) {
-            return Arrays.asList();
-        }
+        List<String> foundPath =  new ArrayList<>();
+        foundPath.add(target);
+        String indexPath = target;
+        do {
+            indexPath = finalPaths.get(indexPath);
+            foundPath.add(indexPath);
 
-        return shortestPath;
-
+        } while (indexPath!=source);
+        Collections.reverse(foundPath);
+        return foundPath;
     }
+
 }
