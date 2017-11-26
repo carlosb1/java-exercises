@@ -14,6 +14,7 @@ public class TrainSearchService implements SearchService {
     }
 
 
+    //TODO refactor all this method
     @Override
     public void addPath(TrainPath newPath) {
         if (!this.paths.containsKey(newPath.getSource())) {
@@ -26,62 +27,27 @@ public class TrainSearchService implements SearchService {
         }
     }
 
-    @Override
-    public List<String> findRoute(String source, String target) {
-        //TODO add tests to check that it doesn't work with no source and target
-/*
-        if (!paths.containsKey(source)) {
-            return Arrays.asList();
-        }
-        if (!paths.containsKey(target)) {
-            return Arrays.asList();
-        }
-*/
-        Map<String, Double>  distances = this.paths.entrySet().stream().collect(
-                Collectors.toMap(
-                        e->e.getKey(),
-                        e->Double.POSITIVE_INFINITY
-                ));
-
-        Map<String, String> finalPaths = new HashMap<>();
-
-        List<String> shortestPath = new ArrayList<String>();
-
-        distances.put(source,0.);
-        String stop = source;
-        boolean exit = false;
-        while (!exit) {
-            shortestPath.add(stop);
-            this.paths.get(stop).stream().forEach(
-                    path -> {
-                        final double acumLength = (path.getWeight() + distances.get(path.getSource()));
-                        if (distances.get(path.getTarget()) >acumLength ) {
-                            distances.put(path.getTarget(),acumLength);
-                            finalPaths.put(path.getTarget(),path.getSource());
-                        }
-
-                    }
-
-            );
-            Optional<String> possibleNextStop = distances.entrySet().stream().filter(entry -> !shortestPath.contains(entry.getKey())).min(Comparator.comparing(entry -> entry.getValue())).map(entry -> entry.getKey());
-            if (!possibleNextStop.isPresent()) {
-                exit = true;
-                continue;
+    public List<String> findPath(String source, String target) {
+        Stack<List<String>>  queue = new Stack<List<String>>();
+        queue.push(Arrays.asList(source));
+        while (!queue.isEmpty()) {
+            List<String> path = queue.pop();
+            /*  condition to leave*/
+            String node = path.get(path.size()-1);
+            if (node.equals(target)) {
+                return path;
             }
-            stop = possibleNextStop.get();
+
+            if (this.paths.containsKey(node)) {
+                for (TrainPath adjacent : this.paths.get(node)) {
+                    List<String> newPath = new ArrayList<>(path);
+                    newPath.add(adjacent.getTarget());
+                    queue.push(newPath);
+                }
+            }
 
         }
-
-        List<String> foundPath =  new ArrayList<>();
-        foundPath.add(target);
-        String indexPath = target;
-        do {
-            indexPath = finalPaths.get(indexPath);
-            foundPath.add(indexPath);
-
-        } while (indexPath!=source);
-        Collections.reverse(foundPath);
-        return foundPath;
+        return Arrays.asList();
     }
 
 }
