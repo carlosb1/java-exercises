@@ -2,32 +2,31 @@ package services.searcher;
 
 
 
-import models.TrainPath;
+import models.Stop;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 
-public class TrainSearchService implements SearchService {
-    private final Map<String,List<TrainPath>> paths;
+public class TrainSearchService {
+    private final Map<String,List<Stop>> paths;
     public TrainSearchService () {
         this.paths = new HashMap<> ();
     }
 
 
-    //TODO refactor all this method
-    @Override
-    public void addPath(TrainPath newPath) {
-        if (!this.paths.containsKey(newPath.getSource())) {
-            this.paths.put(newPath.getSource(),new ArrayList<>());
+    public void addPath(String source, String target, Double cost) {
+        if (!this.paths.containsKey(source)) {
+            this.paths.put(source,new ArrayList<Stop>());
         }
-        this.paths.get(newPath.getSource()).add(newPath);
+        this.paths.get(source).add(new Stop(target, cost));
 
-        if (!this.paths.containsKey(newPath.getTarget())) {
-            this.paths.put(newPath.getTarget(),new ArrayList<>());
+
+        if (!this.paths.containsKey(target)) {
+            this.paths.put(target,new ArrayList<>());
         }
     }
 
-    public List<String> findPath(String source, String target) {
+    public List<String> findRoute(String source, String target) {
         Stack<List<String>>  queue = new Stack<List<String>>();
         queue.push(Arrays.asList(source));
         while (!queue.isEmpty()) {
@@ -39,7 +38,7 @@ public class TrainSearchService implements SearchService {
             }
 
             if (this.paths.containsKey(node)) {
-                for (TrainPath adjacent : this.paths.get(node)) {
+                for (Stop adjacent : this.paths.get(node)) {
                     List<String> newPath = new ArrayList<>(path);
                     newPath.add(adjacent.getTarget());
                     queue.push(newPath);
