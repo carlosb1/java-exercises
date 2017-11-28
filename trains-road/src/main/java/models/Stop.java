@@ -1,14 +1,14 @@
 package models;
 
 public class Stop {
-    private final String target;
+    private final String name;
     private final double cost;
-    public Stop (String target, double cost) {
-        this.target = target;
+    public Stop (String name, double cost) {
+        this.name = name;
         this.cost  = cost;
     }
-    public String getTarget() {
-        return target;
+    public String getName() {
+        return name;
     }
     public double getCost() {
         return cost;

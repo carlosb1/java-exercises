@@ -26,27 +26,35 @@ public class TrainSearchService {
         }
     }
 
-    public List<String> findRoute(String source, String target) {
-        Stack<List<String>>  queue = new Stack<List<String>>();
-        queue.push(Arrays.asList(source));
-        while (!queue.isEmpty()) {
-            List<String> path = queue.pop();
+    public List<Stop> findRoute(String source, String target) {
+        Stack<List<Stop>>  candidates = new Stack<>();
+        candidates.push(Arrays.asList(new Stop(source,0)));
+        while (!candidates.isEmpty()) {
+            List<Stop> path = candidates.pop();
             /*  condition to leave*/
-            String node = path.get(path.size()-1);
-            if (node.equals(target)) {
+            String nameStop = path.get(path.size()-1).getName();
+            if (nameStop.equals(target)) {
                 return path;
             }
 
-            if (this.paths.containsKey(node)) {
-                for (Stop adjacent : this.paths.get(node)) {
-                    List<String> newPath = new ArrayList<>(path);
-                    newPath.add(adjacent.getTarget());
-                    queue.push(newPath);
+            if (this.paths.containsKey(nameStop)) {
+                for (Stop adjacent : this.paths.get(nameStop)) {
+                    List<Stop> newPath = new ArrayList<>(path);
+                    newPath.add(adjacent);
+                    candidates.push(newPath);
                 }
             }
-
         }
         return Arrays.asList();
     }
+
+    public double findDistance(String source, String target) {
+
+        List<Stop> stops = this.findRoute(source,target);
+        Double distance = stops.stream().mapToDouble(stop -> stop.getCost()).sum();
+        return distance;
+    }
+
+
 
 }
