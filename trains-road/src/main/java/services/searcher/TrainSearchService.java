@@ -3,12 +3,14 @@ package services.searcher;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class TrainSearchService {
     private final Map<String,Map<String,Double>> paths;
     public TrainSearchService () {
         this.paths = new HashMap<> ();
+
     }
 
 
@@ -128,35 +130,8 @@ public class TrainSearchService {
     }
 
 
-    public List<Stop> shortestPath(String source, String target) {
-        List<Stop> shortestPath = new ArrayList<>();
-        Stack<List<Stop>>  candidates = new Stack<>();
-        candidates.push(Arrays.asList(new Stop(source,0)));
 
-        while (!candidates.isEmpty()) {
-            List<Stop> path = candidates.pop();
-            /*  condition to leave*/
-            if ((path.size() < shortestPath.size() || shortestPath.size() == 0)
-                    && path.size() >=2
-                    && path.get(0).name.equals(source)
-                    && path.get(path.size()-1).name.equals(target)
-                    ){
-                shortestPath = new ArrayList<>(path);
 
-            }
-            String nameStop = path.get(path.size()-1).getName();
-
-            if (this.paths.containsKey(nameStop)) {
-                Map<String, Double> adjacents  = this.paths.get(nameStop);
-                for (String adjacent : adjacents.keySet()) {
-                    List<Stop> newPath = new ArrayList<>(path);
-                    newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
-                    candidates.push(newPath);
-                }
-            }
-        }
-        return shortestPath;
-    }
 
     public static class Stop {
         private final String name;
@@ -171,5 +146,27 @@ public class TrainSearchService {
         public double getCost() {
             return cost;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Stop stop = (Stop) o;
+
+            if (Double.compare(stop.cost, cost) != 0) return false;
+            return name != null ? name.equals(stop.name) : stop.name == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result;
+            long temp;
+            result = name != null ? name.hashCode() : 0;
+            temp = Double.doubleToLongBits(cost);
+            result = 31 * result + (int) (temp ^ (temp >>> 32));
+            return result;
+        }
     }
+
 }

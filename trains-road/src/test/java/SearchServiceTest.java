@@ -144,15 +144,7 @@ public class SearchServiceTest {
         //TODO refactor with correct assert
         Assert.assertEquals(3,result.size());
     }
-
-//    @Test
-//    public void shortest_path_between_A_C() {
-//        TrainSearchService searchService = setUpTestMap();
-//        List<TrainSearchService.Stop>  result = searchService.shortestPath("A","C");
-//    }
-
-
-
+    
     private TrainSearchService setUpTestMap() {
         TrainSearchService searchService = new TrainSearchService();
         searchService.addPath("A","B",5.);
