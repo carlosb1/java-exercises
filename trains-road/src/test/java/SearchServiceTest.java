@@ -130,11 +130,27 @@ public class SearchServiceTest {
     }
 
     @Test
-    public void available_trips_input1 () {
+    public void available_trips_max_stops() {
         TrainSearchService searchService = setUpTestMap();
-        searchService.availableTrips("C","C",3);
-        //Assert.assertEquals(Arrays.asList(Arrays.asList(new TrainSearchService.Stop())));
+        List<List<TrainSearchService.Stop>>  result = searchService.availableTrips("C","C",3);
+        //TODO refactor with correct assert
+        Assert.assertEquals(2,result.size());
     }
+
+    @Test
+    public void available_trips_exact_stops () {
+        TrainSearchService searchService = setUpTestMap();
+        List<List<TrainSearchService.Stop>>  result = searchService.availableTripsExactStops("A","C",4);
+        //TODO refactor with correct assert
+        Assert.assertEquals(3,result.size());
+    }
+
+//    @Test
+//    public void shortest_path_between_A_C() {
+//        TrainSearchService searchService = setUpTestMap();
+//        List<TrainSearchService.Stop>  result = searchService.shortestPath("A","C");
+//    }
+
 
 
     private TrainSearchService setUpTestMap() {

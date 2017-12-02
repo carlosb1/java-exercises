@@ -94,11 +94,69 @@ public class TrainSearchService {
             }
         }
         return possibleTrips;
+    }
 
+    public List<List<Stop>> availableTripsExactStops(String source, String target, int exactStops) {
+        exactStops = exactStops +1; //it is included source and target
+        List<List<Stop>> possibleTrips = new ArrayList<>();
+        Stack<List<Stop>>  candidates = new Stack<>();
+        candidates.push(Arrays.asList(new Stop(source,0)));
 
+        while (!candidates.isEmpty()) {
+            List<Stop> path = candidates.pop();
+            /*  condition to leave*/
+            if (path.size() == exactStops
+                    && path.size() >=2
+                    && path.get(0).name.equals(source)
+                    && path.get(path.size()-1).name.equals(target)
+                    ){
+                possibleTrips.add(new ArrayList<>(path));
+
+            }
+            String nameStop = path.get(path.size()-1).getName();
+
+            if (this.paths.containsKey(nameStop) && path.size() < exactStops) {
+                Map<String, Double> adjacents  = this.paths.get(nameStop);
+                for (String adjacent : adjacents.keySet()) {
+                    List<Stop> newPath = new ArrayList<>(path);
+                    newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
+                    candidates.push(newPath);
+                }
+            }
+        }
+        return possibleTrips;
     }
 
 
+    public List<Stop> shortestPath(String source, String target) {
+        List<Stop> shortestPath = new ArrayList<>();
+        Stack<List<Stop>>  candidates = new Stack<>();
+        candidates.push(Arrays.asList(new Stop(source,0)));
+
+        while (!candidates.isEmpty()) {
+            List<Stop> path = candidates.pop();
+            /*  condition to leave*/
+            if ((path.size() < shortestPath.size() || shortestPath.size() == 0)
+                    && path.size() >=2
+                    && path.get(0).name.equals(source)
+                    && path.get(path.size()-1).name.equals(target)
+                    ){
+                shortestPath = new ArrayList<>(path);
+
+            }
+            String nameStop = path.get(path.size()-1).getName();
+
+            if (this.paths.containsKey(nameStop)) {
+                Map<String, Double> adjacents  = this.paths.get(nameStop);
+                for (String adjacent : adjacents.keySet()) {
+                    List<Stop> newPath = new ArrayList<>(path);
+                    newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
+                    candidates.push(newPath);
+                }
+            }
+        }
+        return shortestPath;
+    }
 
     public static class Stop {
         private final String name;
