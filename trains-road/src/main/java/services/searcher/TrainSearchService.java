@@ -128,9 +128,77 @@ public class TrainSearchService {
         }
         return possibleTrips;
     }
+    public List<Stop> shortestPath(String source, String target) {
+        List<List<Stop>> possibleTrips = new ArrayList<>();
+        Stack<List<Stop>>  candidates = new Stack<>();
+        candidates.push(Arrays.asList(new Stop(source,0)));
 
+        List<Stop> shortest = new ArrayList<>();
+        while (!candidates.isEmpty()) {
+            List<Stop> path = candidates.pop();
+            /*  condition to leave*/
+            if ((getDistance(path) <= getDistance(shortest) || shortest.isEmpty())
+                    && path.size() >=2
+                    && path.get(0).name.equals(source)
+                    && path.get(path.size()-1).name.equals(target)
+                    ){
+                shortest =  path;
+            }
+            String nameStop = path.get(path.size()-1).getName();
 
+            //checkear distancia!
+            if (this.paths.containsKey(nameStop)) {
+                Map<String, Double> adjacents  = this.paths.get(nameStop);
+                for (String adjacent : adjacents.keySet()) {
+                    List<Stop> newPath = new ArrayList<>(path);
+                    newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
+                    if (!shortest.isEmpty() && getDistance(newPath) >= getDistance(shortest)) {
+                        continue;
+                    }
+                    candidates.push(newPath);
+                }
+            }
+        }
+        return shortest;
+    }
 
+    public List<List<Stop>> availableTripsMoreStops(String source, String target, double moreStops) {
+            moreStops = moreStops +1; //it is included source and target
+            List<List<Stop>> possibleTrips = new ArrayList<>();
+            Stack<List<Stop>>  candidates = new Stack<>();
+            candidates.push(Arrays.asList(new Stop(source,0)));
+
+            while (!candidates.isEmpty()) {
+                List<Stop> path = candidates.pop();
+            /*  condition to leave*/
+                if (getDistance(path) <= moreStops
+                        && path.size() >=2
+                        && path.get(0).name.equals(source)
+                        && path.get(path.size()-1).name.equals(target)
+                        ){
+                    possibleTrips.add(new ArrayList<>(path));
+                }
+                String nameStop = path.get(path.size()-1).getName();
+
+                //checkear distancia!
+                if (this.paths.containsKey(nameStop)) {
+                    Map<String, Double> adjacents  = this.paths.get(nameStop);
+                    for (String adjacent : adjacents.keySet()) {
+                        List<Stop> newPath = new ArrayList<>(path);
+                        newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
+                        if (getDistance(newPath) > moreStops) {
+                            continue;
+                        }
+                        candidates.push(newPath);
+                    }
+                }
+            }
+            return possibleTrips;
+    }
+
+    private double getDistance(List<Stop> path) {
+        return path.stream().mapToDouble(stop -> stop.getCost()).sum();
+    }
 
 
     public static class Stop {

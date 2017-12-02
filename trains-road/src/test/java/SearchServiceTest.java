@@ -144,7 +144,32 @@ public class SearchServiceTest {
         //TODO refactor with correct assert
         Assert.assertEquals(3,result.size());
     }
-    
+    @Test
+    public void available_trips_more_stops () {
+        TrainSearchService searchService = setUpTestMap();
+        List<List<TrainSearchService.Stop>>  result = searchService.availableTripsMoreStops("C","C",30);
+        //TODO refactor with correct assert
+        Assert.assertEquals(3,result.size());
+    }
+
+    @Test
+    public void shortest_trip_A_C () {
+        TrainSearchService searchService = setUpTestMap();
+        List<TrainSearchService.Stop>  result = searchService.shortestPath("A","C");
+        //TODO refactor with correct assert
+        Assert.assertEquals(3,result.size());
+    }
+
+    @Test
+    public void shortest_trip_B_B () {
+        TrainSearchService searchService = setUpTestMap();
+        List<TrainSearchService.Stop>  result = searchService.shortestPath("B","B");
+        //TODO refactor with correct assert
+      //  Assert.assertEquals(3,result.size());
+    }
+
+
+
     private TrainSearchService setUpTestMap() {
         TrainSearchService searchService = new TrainSearchService();
         searchService.addPath("A","B",5.);
