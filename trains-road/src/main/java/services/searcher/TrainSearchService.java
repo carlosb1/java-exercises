@@ -3,15 +3,25 @@ package services.searcher;
 
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 
 public class TrainSearchService {
+
+    public static abstract class SearcheableMap  {
+
+
+
+    }
+
+
+
     private final Map<String,Map<String,Double>> paths;
     public TrainSearchService () {
         this.paths = new HashMap<> ();
 
     }
+
 
 
     public void addPath(String source, String target, Double cost) {
@@ -26,28 +36,6 @@ public class TrainSearchService {
         }
     }
 
-    public List<Stop> findRoute(String source, String target) {
-        Stack<List<Stop>>  candidates = new Stack<>();
-        candidates.push(Arrays.asList(new Stop(source,0)));
-        while (!candidates.isEmpty()) {
-            List<Stop> path = candidates.pop();
-            /*  condition to leave*/
-            String nameStop = path.get(path.size()-1).getName();
-            if (nameStop.equals(target)) {
-                return path;
-            }
-
-            if (this.paths.containsKey(nameStop)) {
-                Map<String, Double> adjacents  = this.paths.get(nameStop);
-                for (String adjacent : adjacents.keySet()) {
-                    List<Stop> newPath = new ArrayList<>(path);
-                    newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
-                    candidates.push(newPath);
-                }
-            }
-        }
-        return Arrays.asList();
-    }
 
     public double findDistance(String ... stops) {
         double costDistance = 0;
@@ -68,7 +56,6 @@ public class TrainSearchService {
     }
 
     public List<List<Stop>> availableTrips(String source, String target, int maxStops) {
-        maxStops = maxStops +1; //it is included source and target
         List<List<Stop>> possibleTrips = new ArrayList<>();
         Stack<List<Stop>>  candidates = new Stack<>();
         candidates.push(Arrays.asList(new Stop(source,0)));
@@ -86,11 +73,14 @@ public class TrainSearchService {
             }
             String nameStop = path.get(path.size()-1).getName();
 
-            if (this.paths.containsKey(nameStop) && path.size() < maxStops) {
+            if (this.paths.containsKey(nameStop) ) {
                 Map<String, Double> adjacents  = this.paths.get(nameStop);
                 for (String adjacent : adjacents.keySet()) {
                     List<Stop> newPath = new ArrayList<>(path);
                     newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
+                    if (newPath.size() > maxStops) {
+                        continue;
+                    }
                     candidates.push(newPath);
                 }
             }
@@ -99,7 +89,6 @@ public class TrainSearchService {
     }
 
     public List<List<Stop>> availableTripsExactStops(String source, String target, int exactStops) {
-        exactStops = exactStops +1; //it is included source and target
         List<List<Stop>> possibleTrips = new ArrayList<>();
         Stack<List<Stop>>  candidates = new Stack<>();
         candidates.push(Arrays.asList(new Stop(source,0)));
@@ -117,11 +106,14 @@ public class TrainSearchService {
             }
             String nameStop = path.get(path.size()-1).getName();
 
-            if (this.paths.containsKey(nameStop) && path.size() < exactStops) {
+            if (this.paths.containsKey(nameStop)) {
                 Map<String, Double> adjacents  = this.paths.get(nameStop);
                 for (String adjacent : adjacents.keySet()) {
                     List<Stop> newPath = new ArrayList<>(path);
                     newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
+                    if (newPath.size() > exactStops) {
+                        continue;
+                    }
                     candidates.push(newPath);
                 }
             }
@@ -129,7 +121,6 @@ public class TrainSearchService {
         return possibleTrips;
     }
     public List<Stop> shortestPath(String source, String target) {
-        List<List<Stop>> possibleTrips = new ArrayList<>();
         Stack<List<Stop>>  candidates = new Stack<>();
         candidates.push(Arrays.asList(new Stop(source,0)));
 
@@ -163,7 +154,6 @@ public class TrainSearchService {
     }
 
     public List<List<Stop>> availableTripsMoreStops(String source, String target, double moreStops) {
-            moreStops = moreStops +1; //it is included source and target
             List<List<Stop>> possibleTrips = new ArrayList<>();
             Stack<List<Stop>>  candidates = new Stack<>();
             candidates.push(Arrays.asList(new Stop(source,0)));
@@ -186,9 +176,11 @@ public class TrainSearchService {
                     for (String adjacent : adjacents.keySet()) {
                         List<Stop> newPath = new ArrayList<>(path);
                         newPath.add(new Stop(adjacent,adjacents.get(adjacent)));
-                        if (getDistance(newPath) > moreStops) {
+
+                        if (getDistance(newPath) >= moreStops) {
                             continue;
                         }
+
                         candidates.push(newPath);
                     }
                 }
